@@ -36,25 +36,30 @@ while pingflag:	#Answer ping message, register user, join channel
 		answer = "PONG " + text.split("PING :")[1] + "\n"
 		print answer
 		pingflag = 0
-		irc.send(answer)
+		irc.send("Antwort: " + answer)
 		#time.sleep(2)
 		irc.send("USER flatbot . . :A simple Bot\n")
 		time.sleep(4)
-		#irc.send("JOIN " + channel + "\n")
-#irc.send("JOIN " + channel + "\r\n")
 
 while 1:
 	text = irc.recv(2048)
 	print text
-
+	
+	#staying alive
 	if text.find("PING ") != -1:
 		answer = "PONG " + text.split("PING :")[1] + "\n"
 		print answer
 		irc.send(answer)
 	
+	#greeting
 	if text.find("!hi ") != -1:
+		print "Channel: " + channel
 		irc.send("PRIVMSG " + channel + " Hello!\n")
 	
+	#getting invited to a channel
 	if text.find("!join") != -1:
+		channel = text.split("!join ")[1]
 		print "Trying to join channel " + channel + "\r\n"
 		irc.send("JOIN " + channel + "\r\n")
+
+	#
