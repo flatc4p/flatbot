@@ -41,9 +41,9 @@ while pingflag:  # Answer ping message, register user, join channel
         answer = b"PONG " + text.split(b"PING ")[1] + b"\r\n"
         print(answer.decode('utf-8'))
         pingflag = 0
-        #irc.send(b"Antwort: " + answer)
+        # irc.send(b"Antwort: " + answer)
         # time.sleep(2)
-        #identresponse = ("USER %s %s %s %s\n" % (username, hostname, servername, realname))
+        # identresponse = ("USER %s %s %s %s\n" % (username, hostname, servername, realname))
         print("Send ident: " + identresponse)
         irc.send(identresponse.encode('utf-8'))
         time.sleep(4)
