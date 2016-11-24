@@ -11,7 +11,7 @@ import time
 server = b"port80b.se.quakenet.org"
 port = 6667
 channel = b"#ossiostborn23"
-botnick = b"flatbot"
+botnick = b"flatzbot"
 pingflag = 1
 password = b"testpass123"
 username = "user"
@@ -27,7 +27,6 @@ print("Connecting to %s:%d..." % (server.decode('utf-8'), port))
 irc.connect((server, port))
 time.sleep(1)
 irc.send(b"NICK " + botnick + b"\r\n")
-
 
 while pingflag:  # Answer ping message, register user, join channel
     text = irc.recv(2048)
@@ -58,9 +57,9 @@ while 1:
     # greeting back
     if text.find(b"!hi") != -1:
         print("greet")
-        # channel = text.split(b"!hi")
+        recipient = text.split(b"!hi")
         print("Channel: " + channel.decode('utf-8'))
-        answer = b"PRIVMSG " + channel + b" Hello!\r\n"
+        answer = b"PRIVMSG " + channel + b" :Hello!\r\n"
         print(answer.decode('utf-8'))
         irc.send(answer)
 
@@ -72,5 +71,21 @@ while 1:
         print(channel)
         print("Trying to join channel " + channel.decode('utf-8') + "\r\n")
         irc.send(b"JOIN " + channel + b"\r\n")
+
+    # get insulted by dolph
+    if text.find(b"!fu") != -1:
+        print("insult")
+        channel = text.split(b"PRIVMSG ")[1]
+        channel = channel.split(b" ")[0]
+        recipient = text.split(b"!~")[0]
+        recipient = recipient.split(b":")[1]
+        print(recipient)
+        irc.send(b"PRIVMSG " + channel + b" :Well, thank you! And a merry \"Fuck you\" to you too, " \
+                 + recipient + b"!\r\n")
+
+    # greeting a new visitor
+    if text.find(b"JOIN") != -1:
+        print("greet")
+
 
     #TODO: more functions :D
