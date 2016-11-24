@@ -88,11 +88,19 @@ def loop():
         # greeting a new visitor
         if text.find(b"JOIN") != -1:
             print("greet")
-            channel = text.split(b"PRIVMSG ")[1]
-            channel = channel.split(b" ")[0]
+            channel = text.split(b"JOIN ")[1]
+            channel = channel.split(b" ")[0].split(b"\r\n")[0]
+            print(b"Channel: " + channel)
             recipient = text.split(b"!~")[0]
             recipient = recipient.split(b":")[1]
-
+            print(b"recipient: " + recipient)
+            if(recipient == botnick):
+                print("PRIVMSG " +channel.decode('utf-8') + " :Hi there. I'm a bot\r\n")
+                irc.send(b"PRIVMSG " + channel + b" :Hi there. I'm a bot\r\n")
+            else:
+                print("PRIVMSG " + channel.decode('utf-8') + " :Welcome, " + recipient.decode('utf-8') \
+                      + "! Enjoy your stay!\r\n")
+                irc.send(b"PRIVMSG " + channel + b" :Welcome, " + recipient + b"! Enjoy your stay!\r\n")
 
         #TODO: more functions :D
 
