@@ -96,7 +96,7 @@ def loop():
             print(b"recipient: " + recipient)
             if(recipient == botnick):
                 print("PRIVMSG " +channel.decode('utf-8') + " :Hi there. I'm a bot\r\n")
-                irc.send(b"PRIVMSG " + channel + b" :Hi there. I'm a bot\r\n")
+                irc.send(b"PRIVMSG " + channel + b" :Hi there. I'm a bot!\r\n")
             else:
                 print("PRIVMSG " + channel.decode('utf-8') + " :Welcome, " + recipient.decode('utf-8') \
                       + "! Enjoy your stay!\r\n")
