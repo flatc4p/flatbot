@@ -10,7 +10,7 @@ import time
 # Settings
 server = b"port80b.se.quakenet.org"
 port = 6667
-botnick = b"flatzbot"
+botnick = b"flatbot"
 username = "user"
 hostname = "host"
 servername = "server"
