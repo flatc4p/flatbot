@@ -85,13 +85,19 @@ def loop():
             irc.send(b"PRIVMSG " + channel + b" :Well, thank you! And a merry \"Fuck you\" to you too, " \
                      + recipient + b"!\r\n")
 
+        if text.find(b"!skaten?") != -1:
+            print("skaten")
+            channel = text.split(b"PRIVMSG ")[1]
+            channel = channel.split(b" ")[0]
+            irc.send(b"PRIVMSG " + channel + b" :Skaten gehen? Schauen wir mal, wie das Wetter wird!\r\n")
+
         # greeting a new visitor
         if text.find(b"JOIN") != -1:
             print("greet")
             channel = text.split(b"JOIN ")[1]
             channel = channel.split(b" ")[0].split(b"\r\n")[0]
             print(b"Channel: " + channel)
-            recipient = text.split(b"!~")[0]
+            recipient = text.split(b"!")[0]
             recipient = recipient.split(b":")[1]
             print(b"recipient: " + recipient)
             if(recipient == botnick):
@@ -101,6 +107,7 @@ def loop():
                 print("PRIVMSG " + channel.decode('utf-8') + " :Welcome, " + recipient.decode('utf-8') \
                       + "! Enjoy your stay!\r\n")
                 irc.send(b"PRIVMSG " + channel + b" :Welcome, " + recipient + b"! Enjoy your stay!\r\n")
+
 
         #TODO: more functions :D
 
