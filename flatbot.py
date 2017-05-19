@@ -6,6 +6,7 @@
 import socket
 # import ssl
 import time
+from blinkt import set_pixel, set_all, show, clear
 
 # Settings
 server = b"port80b.se.quakenet.org"
@@ -47,6 +48,7 @@ def connect(server, port, botnick, identresponse):
 
 def loop():
     """Main loop parsing the chat and reacting to keywords"""
+    lockNotify = False
     while 1:
         text = irc.recv(2048)
         print(text.decode('utf-8'))
@@ -107,6 +109,28 @@ def loop():
                 print("PRIVMSG " + channel.decode('utf-8') + " :Welcome, " + recipient.decode('utf-8') \
                       + "! Enjoy your stay!\r\n")
                 irc.send(b"PRIVMSG " + channel + b" :Welcome, " + recipient + b"! Enjoy your stay!\r\n")
+
+        if text.find(b"!notify") != -1:
+            sender = text.split(b"!~")[0]
+            sender = sender.split(b":")[1]
+            print(b"Sender: " + sender)
+            if not lockNotify:
+                print("notifying flatcap")
+                set_all(0, 255, 255)
+                show()
+
+        if text.find(b"!unnotify") != -1:
+            sender = text.split(b"!~")[0]
+            sender = sender.split(b":")[1]
+            if sender == b"flatcap" or sender == b"flatcap_" :
+                set_all(0, 0, 0)
+                show()
+
+        if text.find(b"!locknotify") != -1:
+            sender = text.split(b"!~")[0]
+            sender = sender.split(b":")[1]
+            if sender == b"flatcap" or sender == b"flatcap_":
+                lockNotify = not lockNotify
 
 
         #TODO: more functions :D
