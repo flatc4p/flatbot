@@ -1,17 +1,18 @@
 # Test for a simple IRC bot in python
 # Author: Max Blank
-# Last changed: Nov 24 2016
+# Last changed: Mar 26 2020
 # Feel free to use, contribute, expand and modify AT YOUR OWN RISK
 
 import socket
 # import ssl
 import time
+import random
 
 # Settings
 server = b"port80b.se.quakenet.org"
 port = 6667
 channel = b"#ossiostborn23"
-botnick = b"flatzbot"
+botnick = b"flatdevbot"
 pingflag = 1
 password = b"testpass123"
 username = "user"
@@ -19,6 +20,7 @@ hostname = "host"
 servername = "server"
 realname = ":Bot"
 identresponse = ("USER %s %s %s %s\r\n" % (username, hostname, servername, realname))
+quitmessages = (b"Cya!", b"Habe d'Ehre!", b"Adios, amigos!", b"Pfiad Eich!", b"Macht's gut, ihr Trottel!")
 
 irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -40,7 +42,7 @@ while pingflag:  # Answer ping message, register user, join channel
         time.sleep(1)
         print("Send ident response: " + identresponse)
         irc.send(identresponse.encode('utf-8'))
-        irc.send(b"/NICK " + botnick + b"\r\n")
+        #irc.send(b"/NICK " + botnick + b"\r\n")
         pingflag = 0
 
 
@@ -87,5 +89,16 @@ while 1:
     if text.find(b"JOIN") != -1:
         print("greet")
 
+	# change nick at runtime
+    if text.find(b"!nick") != -1:
+        print("nick change")
+        botnick = text.split(b"!nick ")[1]
+        botnick = botnick.split(b"\r\n")[0]
+        irc.send(b"NICK " + botnick + b"\r\n")
+
+    if text.find(b"!quit") != -1:
+        print("quitting")
+        irc.send(b"QUIT :" + random.choice(quitmessages) + b"\r\n")
+        break
 
     #TODO: more functions :D
