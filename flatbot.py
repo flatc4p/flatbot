@@ -76,23 +76,6 @@ def loop():
             print("Trying to join channel " + channel.decode('utf-8') + "\r\n")
             irc.send(b"JOIN " + channel + b"\r\n")
 
-        # get insulted by dolph
-        if text.find(b"!fu") != -1:
-            print("insult")
-            channel = text.split(b"PRIVMSG ")[1]
-            channel = channel.split(b" ")[0]
-            recipient = text.split(b"!~")[0]
-            recipient = recipient.split(b":")[1]
-            print(recipient)
-            irc.send(b"PRIVMSG " + channel + b" :Well, thank you! And a merry \"Fuck you\" to you too, " \
-                     + recipient + b"!\r\n")
-
-        if text.find(b"!skaten?") != -1:
-            print("skaten")
-            channel = text.split(b"PRIVMSG ")[1]
-            channel = channel.split(b" ")[0]
-            irc.send(b"PRIVMSG " + channel + b" :Skaten gehen? Schauen wir mal, wie das Wetter wird!\r\n")
-
         # greeting a new visitor
         if text.find(b"JOIN") != -1:
             print("greet")
@@ -109,31 +92,8 @@ def loop():
                 print("PRIVMSG " + channel.decode('utf-8') + " :Welcome, " + recipient.decode('utf-8') \
                       + "! Enjoy your stay!\r\n")
                 irc.send(b"PRIVMSG " + channel + b" :Welcome, " + recipient + b"! Enjoy your stay!\r\n")
-
-        if text.find(b"!notify") != -1:
-            sender = text.split(b"!~")[0]
-            sender = sender.split(b":")[1]
-            print(b"Sender: " + sender)
-            if not lockNotify:
-                print("notifying flatcap")
-                set_all(0, 255, 255)
-                show()
-
-        if text.find(b"!unnotify") != -1:
-            sender = text.split(b"!~")[0]
-            sender = sender.split(b":")[1]
-            if sender == b"flatcap" or sender == b"flatcap_" :
-                set_all(0, 0, 0)
-                show()
-
-        if text.find(b"!locknotify") != -1:
-            sender = text.split(b"!~")[0]
-            sender = sender.split(b":")[1]
-            if sender == b"flatcap" or sender == b"flatcap_":
-                lockNotify = not lockNotify
-
-
-        #TODO: more functions :D
+                
+        #TODO: implement real modular approach enabling loading seperate modules at runtime
 
 # Connect to irc server
 connect(server, port, botnick, identresponse)
