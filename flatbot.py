@@ -1,12 +1,16 @@
-# Test for a simple IRC bot in python
-# Author: Max Blank
-# Last changed: Nov 24 2016
-# Feel free to use, contribute, expand and modify AT YOUR OWN RISK
+"""
+Test for a simple IRC bot in python
+Modular approach
+flatbot.py - providing basic functionality (connect to irc server, set nickname, get invited to channel and greet new users)
+TODO: add support to load modules during runtime
+Author: Max Blank
+Last changed: Mar 26 2020
+Feel free to use, contribute, expand and modify AT YOUR OWN RISK
+"""
 
 import socket
-# import ssl
+import importlib
 import time
-#from blinkt import set_pixel, set_all, show, clear
 
 # Settings
 server = b"port80b.se.quakenet.org"
@@ -30,9 +34,9 @@ def connect(server, port, botnick, identresponse):
     irc.send(b"NICK " + botnick + b"\r\n")
     pingflag = 1
 
-    while pingflag:  # Answer ping message, register user, join channel
+    while pingflag:  # Answer ping message, register user 
         text = irc.recv(2048)
-        print(text.decode('utf-8'))
+        print(text.decode('iso-8859-1'))
 
         if text.find(b"PING") != -1:
             answer = b"PONG " + text.split(b"PING ")[1] + b"\r\n"
@@ -50,7 +54,7 @@ def loop():
     """Main loop parsing the chat and reacting to keywords"""
     while 1:
         text = irc.recv(2048)
-        print(text.decode('utf-8'))
+        print(text.decode('iso-8859-1'))
 
         # staying alive
         if text.find(b"PING ") != -1:
