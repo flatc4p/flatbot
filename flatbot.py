@@ -11,8 +11,10 @@ Feel free to use, contribute, expand and modify AT YOUR OWN RISK
 import socket
 import importlib
 import time
+import flatmodule
 
 # Settings
+#TODO: put settings in seperate .json file or similar
 server = b"port80b.se.quakenet.org"
 port = 6667
 botnick = b"flatbot"
