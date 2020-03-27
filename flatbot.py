@@ -6,7 +6,7 @@
 import socket
 # import ssl
 import time
-from blinkt import set_pixel, set_all, show, clear
+#from blinkt import set_pixel, set_all, show, clear
 
 # Settings
 server = b"port80b.se.quakenet.org"
@@ -48,7 +48,6 @@ def connect(server, port, botnick, identresponse):
 
 def loop():
     """Main loop parsing the chat and reacting to keywords"""
-    lockNotify = False
     while 1:
         text = irc.recv(2048)
         print(text.decode('utf-8'))
@@ -63,6 +62,8 @@ def loop():
         if text.find(b"!hi") != -1:
             print("greet")
             recipient = text.split(b"!hi")
+            channel = text.split(b"PRIVMSG ")[1]
+            channel = channel.split(b" ")[0]
             print("Channel: " + channel.decode('utf-8'))
             answer = b"PRIVMSG " + channel + b" :Hello!\r\n"
             print(answer.decode('utf-8'))

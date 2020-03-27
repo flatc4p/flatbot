@@ -1,0 +1,38 @@
+        if text.find(b"!notify") != -1:
+            sender = text.split(b"!~")[0]
+            sender = sender.split(b":")[1]
+            print(b"Sender: " + sender)
+            if not lockNotify:
+                print("notifying flatcap")
+                set_all(0, 255, 255)
+                show()
+
+        if text.find(b"!unnotify") != -1:
+            sender = text.split(b"!~")[0]
+            sender = sender.split(b":")[1]
+            if sender == b"flatcap" or sender == b"flatcap_" :
+                set_all(0, 0, 0)
+                show()
+
+        if text.find(b"!locknotify") != -1:
+            sender = text.split(b"!~")[0]
+            sender = sender.split(b":")[1]
+            if sender == b"flatcap" or sender == b"flatcap_":
+                lockNotify = not lockNotify
+				
+        if text.find(b"!skaten?") != -1:
+            print("skaten")
+            channel = text.split(b"PRIVMSG ")[1]
+            channel = channel.split(b" ")[0]
+            irc.send(b"PRIVMSG " + channel + b" :Skaten gehen? Schauen wir mal, wie das Wetter wird!\r\n")
+			
+        # get insulted by dolph
+        if text.find(b"!fu") != -1:
+            print("insult")
+            channel = text.split(b"PRIVMSG ")[1]
+            channel = channel.split(b" ")[0]
+            recipient = text.split(b"!~")[0]
+            recipient = recipient.split(b":")[1]
+            print(recipient)
+            irc.send(b"PRIVMSG " + channel + b" :Well, thank you! And a merry \"Fuck you\" to you too, " \
+                     + recipient + b"!\r\n")
