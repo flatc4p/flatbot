@@ -14,23 +14,27 @@ Disclaimer: use at your own risk only!
 """
 
 class FlatModule:
-    def __init__(self, name, command, debugmsg, usagemsg, *args, **kwargs):
+
+    def __init__(self, irc, name, command, debugmsg, usagemsg, *args, **kwargs):
         print(b"Module " + name + " loaded!")
+        self.irc        = irc
+        self.name       = name
+        self.debugmsg   = debugmsg
+        self.command    = command
+        self.usagemsg   = usagemsg
 
-    def run(text):
-        print(debugmsg)
+    def run(self, text):
+        print(self.debugmsg)
 
-    def usage(channel):
-        print(usagemsg)
+    def usage(self, channel):
+        print(self.usagemsg)
 
-    def getChannel(text):
+    def getChannel(self, text):
         channel = text.split(b"PRIVMSG ")[1]
         channel = channel.split(b" ")[0]
         return channel
 
-    def getRecipient(text):
+    def getRecipient(self, text):
         recipient = text.split(b"!~")[0]
         recipient = recipient.split(b":")[1]
         return recipient
-
-

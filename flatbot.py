@@ -11,9 +11,11 @@ Feel free to use, contribute, expand and modify AT YOUR OWN RISK
 import socket
 import importlib
 import time
-import flatmodule
+import json
+#from modules import flatmodule
 
 # Settings
+configPath = "/config/config.json"
 #TODO: put settings in seperate .json file or similar
 server = b"port80b.se.quakenet.org"
 port = 6667
@@ -26,6 +28,16 @@ identresponse = ("USER %s %s %s %s\r\n" % (username, hostname, servername, realn
 
 irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+# def importSettings():
+#     with open(configPath, 'r') as config:
+#         settings = json.load(config)
+#         botnick = settings.botnick
+
+
+def importModules(irc):
+    with open(configPath, 'r') as config:
+        moduleList = json.load(config)
+    return moduleList
 
 def connect(server, port, botnick, identresponse):
     """Connect to an irc server"""
@@ -105,4 +117,5 @@ def loop():
 # Connect to irc server
 connect(server, port, botnick, identresponse)
 # Loop chatbot functionality
+importlib
 loop()

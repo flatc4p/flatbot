@@ -1,0 +1,25 @@
+{
+    "connectionSettings": [
+        {
+            "ircServer": "port80b.se.quakenet.org",
+            "ircPort": 6667
+        }
+    ],
+    "botSettings": [
+        {
+            "botnick": "flatbot",
+            "username": "user",
+            "hostname": "host",
+            "servername": "server",
+            "realname": ":Bot"
+        }
+    ],
+    "activeModules": [
+        {
+            "name": "fu",
+            "command": "!fu",
+            "debugmsg": "swearing",
+            "usagemsg": "!fu - Triggers swearing back to the sender!"
+        }
+    ]    
+}
