@@ -1,25 +1,29 @@
 {
-    "connectionSettings": [
+    "connectionSettings":
         {
             "ircServer": "port80b.se.quakenet.org",
             "ircPort": 6667
-        }
-    ],
-    "botSettings": [
+        },
+    "botSettings":
         {
             "botnick": "flatbot",
             "username": "user",
             "hostname": "host",
             "servername": "server",
             "realname": ":Bot"
-        }
-    ],
-    "activeModules": [
+        },
+    "activeModules":[
         {
             "name": "fu",
             "command": "!fu",
             "debugmsg": "swearing",
             "usagemsg": "!fu - Triggers swearing back to the sender!"
+        },
+        {
+            "name": "test",
+            "command": "!test",
+            "debugmsg": "for testing purposes only",
+            "usagemsg": "!test - Triggers a test message printed to the debug log"
         }
-    ]    
+    ]
 }
